@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,6 +16,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
         })->name('dashboard');
 
         Route::resource('categories', CategoryController::class);
+        Route::resource('events', EventController::class);
     });
 });
 

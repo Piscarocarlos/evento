@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function index() {
-        $categories = Category::orderByDesc('created_at')->get();
+        $categories = Category::orderByDesc('created_at')->with('events')->get();
         return inertia('backend/categories/index', ['list_categories' => $categories]);
     }
 

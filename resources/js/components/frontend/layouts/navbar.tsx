@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Link, usePage } from '@inertiajs/react';
 
 interface NavItemProps {
     text: string;
@@ -67,7 +68,8 @@ const MobileNav: React.FC = () => (
     </Sheet>
 );
 
-const UserDropdown: React.FC = () => (
+const UserDropdown: React.FC = ({ user }: any) => (
+
     <DropdownMenu>
         <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -80,8 +82,8 @@ const UserDropdown: React.FC = () => (
         <DropdownMenuContent className="w-56" align="end" forceMount>
             <div className="flex items-center justify-start gap-2 p-2">
                 <div className="flex flex-col space-y-1 leading-none">
-                    <p className="font-medium">Utilisateur</p>
-                    <p className="text-sm text-gray-500">utilisateur@exemple.com</p>
+                    <p className="font-medium">{user?.name}</p>
+                    <p className="text-sm text-gray-500">{user?.email}</p>
                 </div>
             </div>
             <DropdownMenuSeparator />
@@ -94,15 +96,21 @@ const UserDropdown: React.FC = () => (
                 <span>Notifications</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-500" onClick={() => route('logout')}>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Déconnexion</span>
+            <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-500" >
+                <Link href={route('logout')} className='flex items-center'>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Déconnexion</span>
+                </Link>
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
 );
 
 const Navbar: React.FC = () => {
+
+    const { name, auth } = usePage().props;
+    console.log(name, auth)
+
     return (
         <header className="sticky top-0 z-50 bg-white shadow-sm">
             <div className="container mx-auto flex h-14 items-center justify-between px-4">
@@ -126,7 +134,9 @@ const Navbar: React.FC = () => {
                     >
                         Créer un événement
                     </Button>
-                    <UserDropdown />
+                    {
+                        auth?.user ? <UserDropdown user={auth?.user} /> : <Link href={route('login')}>Se connecter</Link>
+                    }
                 </div>
             </div>
         </header>

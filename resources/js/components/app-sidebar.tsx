@@ -20,7 +20,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Evènements',
-        url: "",
+        url: route('events.index'),
         icon: Calendar1,
     },
 ];

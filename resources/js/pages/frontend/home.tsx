@@ -3,11 +3,11 @@ import Hero from '@/components/frontend/home/hero'
 import FrontLayout from '@/components/frontend/layouts/front-layout'
 import React from 'react'
 
-function Home() {
+function Home({categories}: any) {
     return (
         <FrontLayout>
             <Hero/>
-            <ListEvents/>
+            <ListEvents categories={categories} />
         </FrontLayout>
     )
 }
